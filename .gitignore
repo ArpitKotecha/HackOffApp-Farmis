@@ -11,7 +11,7 @@
 # Generated files
 bin/
 gen/
-out/
+out/s
 
 # Gradle files
 .gradle/
@@ -34,6 +34,23 @@ captures/
 
 # IntelliJ
 *.iml
+<<<<<<< Updated upstream
+build
+.gradle
+.idea/
+.idea
+/local.properties
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.DS_Store
+/build
+app/build/
+/app/build/
+/captures
+.externalNativeBuild
+app/build
+=======
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
@@ -63,3 +80,4 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+>>>>>>> Stashed changes
