@@ -1,5 +1,7 @@
 package arpit.com.farmis;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -21,6 +23,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         final Handler handler = new Handler();
-        final int delay = 10000; //milliseconds
+        final int delay = 5000; //milliseconds
 
         handler.postDelayed(new Runnable(){
             public void run(){
@@ -117,8 +123,20 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.fab)
     public void fabClick(View view) {
-
-
+         new MaterialStyledDialog.Builder(this)
+                .setTitle("Call the experts!")
+                .setDescription("Call us to get recommendation from our expert specially customized for your farm.")
+                .setIcon(R.drawable.ic_supervisor_account_black_24dp)
+                .withIconAnimation(true)
+                .setPositiveText("Call Now")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:6376936363"));
+                        startActivity(callIntent);
+                    }})
+                .show();
 
     }
 
