@@ -78,18 +78,32 @@ public class RVViewHolder extends RecyclerView.ViewHolder implements DataLoaded 
             List<Float> valueList = values.subList(position, values.size());
             System.out.print("pos=> " + position + " hour=> " + hour);
             stats.setText(name);
-            max.setText("Max : " + Collections.max(valueList));
-            curr.setText("Current : " + values.get(values.size() - 1));
-            min.setText("Min : " + Collections.min(valueList));
+
 
             if (name.equalsIgnoreCase("humidity")) {
                 imageView.setImageResource(R.drawable.ic_humidity);
+                max.setText(context.getString(R.string.max) + " " + Collections.max(valueList) + "g/m3");
+                curr.setText(context.getString(R.string.current) + " " + values.get(values.size() - 1) + "g/m3");
+                min.setText(context.getString(R.string.min) + " " + Collections.min(valueList) + "g/m3");
+
             } else if (name.equalsIgnoreCase("temperature")) {
                 imageView.setImageResource(R.drawable.ic_thermometer);
+                max.setText(context.getString(R.string.max) + " " + Collections.max(valueList) + context.getString(R.string.celsius));
+                curr.setText(context.getString(R.string.current) + " " + values.get(values.size() - 1) + context.getString(R.string.celsius));
+                min.setText(context.getString(R.string.min) + " " + Collections.min(valueList) + context.getString(R.string.celsius));
+
             } else if (name.equalsIgnoreCase("level")) {
                 imageView.setImageResource(R.drawable.ic_arrow_up_water_level);
+                max.setText(context.getString(R.string.max) + " " + Collections.max(valueList));
+                curr.setText(context.getString(R.string.current) + " " + values.get(values.size() - 1));
+                min.setText(context.getString(R.string.min) + " " + Collections.min(valueList));
+
             } else if (name.equalsIgnoreCase("silo level")) {
                 imageView.setImageResource(R.drawable.ic_silo);
+                max.setText(context.getString(R.string.max) + Collections.max(valueList));
+                curr.setText(context.getString(R.string.current) + values.get(values.size() - 1));
+                min.setText(context.getString(R.string.min) + Collections.min(valueList));
+
             }
 
             for (int i = 0; i < hour; i++) {

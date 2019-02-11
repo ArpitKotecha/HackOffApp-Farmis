@@ -52,7 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="105dp"
-                android:text="76%"
+                android:text="@string/_76"
                 android:textColor="@android:color/white"
                 android:textSize="54sp" />
 
@@ -65,7 +65,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="180dp"
-                android:text="Farm Health"
+                android:text="@string/farm_health"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
         </RelativeLayout>

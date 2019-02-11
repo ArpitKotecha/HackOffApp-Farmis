@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, JsonLoaded {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String URl = "http://darsh.southindia.cloudapp.azure.com:8080/get/all";
+    private static final String URl = "Server Url";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.secToolbar)
@@ -76,11 +75,15 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         final Handler handler = new Handler();
-        final int delay = 5000; //milliseconds
+        final int delay = 3000; //milliseconds
+
+        DownloadJSON downloadJSON = new DownloadJSON("http://darsh.southindia.cloudapp.azure.com:8080/get/all",
+                MainActivity.this);
+        downloadJSON.execute();
 
         handler.postDelayed(new Runnable(){
             public void run(){
-                DownloadJSON downloadJSON = new DownloadJSON("http://darsh.southindia.cloudapp.azure.com:8080/get/all",
+                DownloadJSON downloadJSON = new DownloadJSON("Server Url",
                         MainActivity.this);
                 downloadJSON.execute();
                 handler.postDelayed(this, delay);
@@ -124,16 +127,16 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.fab)
     public void fabClick(View view) {
          new MaterialStyledDialog.Builder(this)
-                .setTitle("Call the experts!")
-                .setDescription("Call us to get recommendation from our expert specially customized for your farm.")
+                .setTitle(R.string.dialog_title)
+                .setDescription(R.string.dialog_desc)
                 .setIcon(R.drawable.ic_supervisor_account_black_24dp)
                 .withIconAnimation(true)
-                .setPositiveText("Call Now")
+                .setPositiveText(R.string.call_now)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:6376936363"));
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:1376936363"));
                         startActivity(callIntent);
                     }})
                 .show();
@@ -166,6 +169,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(MainActivity.this, Alert.class);
             return true;
         }
 
@@ -227,7 +231,7 @@ public class MainActivity extends AppCompatActivity
     void loadRVCard(Item item) {
 
 
-        final Presenter[] myListPresenter = {new Presenter(item)};
+        final Presenter[] myListPresenter = {new Presenter(item, this)};
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
